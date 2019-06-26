@@ -44,7 +44,7 @@ begin
     begin
       if rising_edge(clk) then
         -- + PF_ALGO_LATENCY mod 6 to align with the PF core output
-        q(i).data(31 downto 0) <= d_pf(0)(i);
+        q(i).data(63 downto 0) <= d_pf(0)(i);
         q(i).strobe <= '1';
       end if;
     end process mux_process;

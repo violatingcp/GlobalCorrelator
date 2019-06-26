@@ -43,21 +43,21 @@ architecture rtl of emp_payload is
 
   signal rst_loc_reg : std_logic_vector(N_REGION - 1 downto 0);       
   constant N_FRAMES_USED : natural := 1;
-  signal start_pf : std_logic_vector(5 downto 0);
-  signal d_pf : pf_data_array(N_PF_IP_CORES - 1 downto 0)(N_PF_IP_CORE_IN_CHANS - 1 downto 0);
-  signal q_pf : pf_data_array(N_PF_IP_CORES - 1 downto 0)(N_PF_IP_CORE_OUT_CHANS - 1 downto 0);
+  signal start_pf : std_logic_vector(PF_RESHAPE_FACTOR - 1 downto 0) := (0 => '1', others => '0');                
+--  signal d_pf : pf_data_array(N_PF_IP_CORES - 1 downto 0)(N_PF_IP_CORE_IN_CHANS - 1 downto 0);
+--  signal q_pf : pf_data_array(N_PF_IP_CORES - 1 downto 0)(N_PF_IP_CORE_OUT_CHANS - 1 downto 0);
 
 begin
 
 	ipb_out <= IPB_RBUS_NULL;
 
-    multiplex : entity work.multiplexer
-      port map(
-        clk => clk_p,
-        d => d(N_IN_CHANS - 1 downto 0),
-        start_pf => start_pf,
-        q_pf => d_pf
-      );
+--    multiplex : entity work.multiplexer
+--      port map(
+--        clk => clk_p,
+--        d => d(N_IN_CHANS - 1 downto 0),
+--        start_pf => start_pf,
+--        q_pf => d_pf
+--      );
 
    selector_gen : process (clk_p)
    begin  -- process selector_gen
@@ -67,26 +67,25 @@ begin
     end process selector_gen;
 
     generate_pf_cores : for i in N_PF_IP_CORES - 1 downto 0 generate
-      pf_algo : entity work.pf_ip_wrapper
+      pf_algo : entity work.sort_ip_wrapper
         PORT MAP (
           clk    => clk_p,
           rst    => rst_loc(i),
           start  => start_pf(i),
-          -- start  => start_pf(i),
-          input  => d_pf(i),
+          input  => d(N_IN_CHANS - 1 downto 0),
           done   => open,
           idle   => open,
           ready  => open,
-          output => q_pf(i)
+          output => q(N_IN_CHANS - 1 downto 0)
         );
     end generate generate_pf_cores;
 
-    demux : entity work.demultiplexer
-      port map (
-        clk => clk_p,
-        d_pf => q_pf,
-        q => q(N_OUT_CHANS - 1 downto 0)
-      );
+--    demux : entity work.demultiplexer
+--      port map (
+--        clk => clk_p,
+--        d_pf => q_pf,
+--        q => q(N_OUT_CHANS - 1 downto 0)
+--      );
 
      bc0 <= '0';
      gpio <= (others => '0');

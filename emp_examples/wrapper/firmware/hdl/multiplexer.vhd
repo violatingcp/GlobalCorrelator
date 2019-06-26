@@ -26,7 +26,7 @@ architecture rtl of multiplexer is
   --type tSel is range 0 to PF_RESHAPE_FACTOR - 1;
   type tSelArray is array (natural range <>) of integer range 0 to PF_RESHAPE_FACTOR - 1;
   signal sel : tSelArray(N_PF_IP_CORES - 1 downto 0);
-  signal start_pf_int : std_logic_vector(PF_RESHAPE_FACTOR - 1 downto 0) := (others => '0'); --(0 => '1', others => '0');
+  signal start_pf_int : std_logic_vector(PF_RESHAPE_FACTOR - 1 downto 0) := (0 => '1', others => '0');
   signal d0ValidLast : std_logic; -- The valid bit of the 0th input from the previous cycle
   signal dPipe : ldata(N_IN_CHANS - 1 downto 0);
 
@@ -74,7 +74,7 @@ begin
       begin
         if rising_edge(clk) then
           if j / N_CHANS_PER_CORE = sel(i) then
-            q_pf(i)(j) <= dPipe(i * N_CHANS_PER_CORE + j mod N_CHANS_PER_CORE).data(31 downto 0);
+            q_pf(i)(j) <= dPipe(i * N_CHANS_PER_CORE + j mod N_CHANS_PER_CORE).data(63 downto 0);
           end if;
         end if;
       end process;
