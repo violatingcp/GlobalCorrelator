@@ -23,10 +23,6 @@ architecture rtl of sort_ip_wrapper is
   
 begin
 
---  pf_algo : entity work.mp7wrapped_pfalgo3_full_0
---  pf_algo : entity work.algo_inputs_layer2_v3_0
---   pf_algo : entity work.algo_tau_layer2_v3_0
---   pf_algo : entity work.algo_sort_v4_0
    pf_algo : entity work.algo_sort_v5_0
    port map (
       ap_clk => clk,
@@ -107,11 +103,11 @@ begin
       --input_69_V => input(69).data,
       --input_70_V => input(70).data,
       --input_71_V => input(71).data,
-      output_0_V => output(0).data,
-      output_1_V => output(1).data,
-      output_2_V => output(2).data,
-      output_3_V => output(3).data,
-      output_4_V => output(4).data
+      output_0_V => output(32).data,
+      output_1_V => output(33).data,
+      output_2_V => output(34).data,
+      output_3_V => output(35).data,
+      output_4_V => output(36).data
       --output_5_V => output(5).data,
       --output_6_V => output(6).data,
       --output_7_V => output(7).data,
