@@ -1,5 +1,4 @@
-src emp_payload_sort.vhd
-src sort_ip_wrapper.vhd
+src emp_payload_buff.vhd
 src pf_constants.vhd
 src -c components/datapath emp_data_types.vhd
 src -c ipbus-firmware:components/ipbus_core ipbus_package.vhd
