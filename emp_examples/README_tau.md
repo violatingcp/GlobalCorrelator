@@ -24,9 +24,7 @@ vivado_hls run_hls_sort_v5.tcl
 Still in `p2fwk-work/src`
 ```
 git clone https://github.com/violatingcp/GlobalCorrelator.git
-
 For VCU118 dev-kit (VU9P FPGA):
-```
 ipbb proj create vivado tau_vcu118 GlobalCorrelator:emp_examples/top -t top_vcu118_sort.dep
 cd proj/tau_vcu118
 ```
@@ -66,7 +64,7 @@ empbutler -c /afs/cern.ch/work/s/ssummers/public/forbrandon/VertexFinder_vcu118/
 sudo /afs/cern.ch/work/s/ssummers/public/forbrandon/pcie_reconnect_xilinx.sh
 sudo chmod 777 /dev/xdma0_c2h_0 /dev/xdma0_h2c_0
 /afs/cern.ch/user/p/pharris/public/tmp2/emp-toolbox/tmp/pattern_file_test.sh
-
+```
 
 
 
