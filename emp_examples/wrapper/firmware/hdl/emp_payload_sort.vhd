@@ -69,16 +69,6 @@ begin
       ready  => open,
       output => q(N_OUT_CHANS - 1 downto 0)
    );
-
-  gMux : for i in N_OUT_CHANS - 1 downto 0 generate     
-   selector_end : process (clk_p)
-   begin 
-    if rising_edge(clk) then
-      q(i).strobe <= '1';
-      q(i).valid  <= '1'; 
-    end if;
-   end process selector_end;
-  end generate gMux;
    
   bc0 <= '0';
   gpio <= (others => '0');

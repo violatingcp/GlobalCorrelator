@@ -41,7 +41,7 @@ entity emp_payload is
 end emp_payload;
 
 architecture rtl of emp_payload is
-  constant PAYLOAD_LATENCY : natural := 2;
+  constant PAYLOAD_LATENCY : natural := 1;
   signal rst_loc_reg : std_logic_vector(N_REGION - 1 downto 0);       
   constant N_FRAMES_USED : natural := 1;
   signal start_pf : std_logic_vector(0 downto 0) := (others => '1');                

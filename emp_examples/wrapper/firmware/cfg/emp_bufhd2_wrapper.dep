@@ -1,0 +1,8 @@
+src emp_payload_buffhdl2.vhd
+src simple_buff_v1.vhd
+src buffer_input_v1.vhd
+src fifo_w64_d10_A_v1.vhd
+src -c components/datapath emp_data_types.vhd
+src -c ipbus-firmware:components/ipbus_core ipbus_package.vhd
+src -c components/ttc emp_ttc_decl.vhd
+

@@ -21,7 +21,8 @@ end sort_ip_wrapper;
 
 architecture rtl of sort_ip_wrapper is
   	type dr_t  is array(PAYLOAD_LATENCY downto 0) of ldata(3 downto 0);
-        type dr2_t is array(PAYLOAD_LATENCY downto 0) of ldata(1 downto 0);      
+        type dr1_t is array(PAYLOAD_LATENCY2 downto 0) of ldata(3 downto 0);            
+        type dr2_t is array(PAYLOAD_LATENCY2 downto 0) of ldata(1 downto 0);      
         signal inputtmp  : ldata(35 downto 0);
         signal outputtmp : ldata(5  downto 0);
 begin
@@ -96,7 +97,7 @@ begin
       );
 
     genout1: for i in 0 downto 0 generate
-      signal dr: dr_t;
+      signal dr: dr1_t;
       attribute SHREG_EXTRACT: string;
       attribute SHREG_EXTRACT of dr: signal is "no"; -- Don't absorb FFs into shreg
     begin
@@ -104,12 +105,20 @@ begin
       process(clk) -- Mother of all shift registers
       begin
         if rising_edge(clk) then
-          dr(PAYLOAD_LATENCY downto 1) <= dr(PAYLOAD_LATENCY - 1 downto 0);
+          dr(PAYLOAD_LATENCY2 downto 1) <= dr(PAYLOAD_LATENCY2 - 1 downto 0);
         end if;
       end process;
-      output(3 downto 0) <= dr(PAYLOAD_LATENCY);
-    end generate;
-
+      output(3 downto 0) <= dr(PAYLOAD_LATENCY2);
+      output(3).strobe <= '1';
+      output(3).valid  <= '1';
+      output(2).strobe <= '1';
+      output(2).valid  <= '1';
+      output(1).strobe <= '1';
+      output(1).valid  <= '1';
+      output(0).strobe <= '1';
+      output(0).valid  <= '1';
+     end generate;
+      
     genout2: for i in 0 downto 0 generate
       signal dr: dr2_t;
       attribute SHREG_EXTRACT: string;
@@ -119,10 +128,14 @@ begin
       process(clk) -- Mother of all shift registers
       begin
         if rising_edge(clk) then
-          dr(PAYLOAD_LATENCY downto 1) <= dr(PAYLOAD_LATENCY - 1 downto 0);
+          dr(PAYLOAD_LATENCY2 downto 1) <= dr(PAYLOAD_LATENCY2 - 1 downto 0);
         end if;
       end process;
-      output(5 downto 4) <= dr(PAYLOAD_LATENCY);
+      output(5 downto 4) <= dr(PAYLOAD_LATENCY2);
+      output(5).strobe <= '1';
+      output(5).valid  <= '1';
+      output(4).strobe <= '1';
+      output(4).valid  <= '1';
     end generate;
 
 end rtl;
